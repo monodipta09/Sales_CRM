@@ -17,11 +17,12 @@ class AuthController extends GetxController {
     isLoading.value = false;
 
     if (isSuccess) {
-      if (Platform.isAndroid) {
-        Get.offAll(() => SalesCrmEntryPointAndroid());
-      } else if (Platform.isIOS) {
-        Get.offAll(() => SalesCrmEntryPointIOS());
-      }
+      // if (Platform.isAndroid) {
+      //   Get.offAll(() => SalesCrmEntryPointAndroid());
+      // } else if (Platform.isIOS) {
+      //   Get.offAll(() => SalesCrmEntryPointIOS());
+      // }
+      Get.offAll(() => SalesCrmEntryPointIOS());
       Get.snackbar(
         "Success",
         "Logged in successfully!",

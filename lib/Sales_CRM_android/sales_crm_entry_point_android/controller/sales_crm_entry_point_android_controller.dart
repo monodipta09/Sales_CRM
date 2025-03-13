@@ -22,7 +22,7 @@ class SalesCrmEntryPointAndroidController extends GetxController {
     AccountScreen(),   // index 5 (More option)
     DealsScreen(),     // index 6 (More option)
     TaskScreen(),
-    SummaryScreen()// index 7 (More option)
+    // SummaryScreen()// index 7 (More option)
   ];
 
   void goToTab(int page) {

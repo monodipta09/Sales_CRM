@@ -266,9 +266,8 @@ class EventFormModal extends StatelessWidget {
   // Store Future to prevent multiple API calls
   final Future<List<Map<String, dynamic>>> _futureActiveUsers;
 
-  EventFormModal({Key? key})
-      : _futureActiveUsers = getActiveUsersMap(),
-        super(key: key);
+  EventFormModal({super.key})
+      : _futureActiveUsers = getActiveUsersMap();
 
   static Future<List<Map<String, dynamic>>> getActiveUsersMap() async {
     try {

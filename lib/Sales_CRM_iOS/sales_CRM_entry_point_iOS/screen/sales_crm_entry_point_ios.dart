@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
+import 'package:sale_crm/Sales_CRM_android/views/more/screen/more_bottom_app_bar_item.dart';
+import 'package:sale_crm/Sales_CRM_iOS/common_components_ios/bottom_modal_ios/widget/bottom_modal_ios.dart';
+import 'package:sale_crm/Sales_CRM_iOS/sales_CRM_entry_point_iOS/widget/bottom_appbar_item_ios.dart';
+import 'package:sale_crm/Sales_CRM_iOS/views/more/screen/more_options_ios.dart';
 // import 'package:flutter/material.dart';
 
 import '../../common_components_ios/custom_appbar_ios/view/custom_appbar.dart';
@@ -13,7 +17,6 @@ class SalesCrmEntryPointIOS extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final List<String> tabs =
         ["Home", "Leads", "Contacts", "Accounts", "More"].obs;
     final List<IconData> icons = [
@@ -41,42 +44,31 @@ class SalesCrmEntryPointIOS extends StatelessWidget {
           // Scrollable Bottom Navigation Bar
           Obx(() => Container(
                 // padding: EdgeInsets.symmetric(vertical: 8),
+                width: double.infinity,
                 color: CupertinoColors.systemGrey6,
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: List.generate(tabs.length, (index) {
-                      return GestureDetector(
-                        onTap: () =>
-                            _salesCrmEntryPointIosController.animateToTab(index),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 17),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(icons[index],
-                                  color: _salesCrmEntryPointIosController
-                                              .currentPage.value ==
-                                          index
-                                      ? CupertinoColors.activeBlue
-                                      : CupertinoColors.inactiveGray),
-                              Text(
-                                tabs[index],
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: _salesCrmEntryPointIosController
-                                              .currentPage.value ==
-                                          index
-                                      ? CupertinoColors.activeBlue
-                                      : CupertinoColors.inactiveGray,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
+                      if (index <= 3) {
+                        return BottomAppbarItemIos(
+                            icon: icons[index],
+                            label: tabs[index],
+                            page: index,
+                            isSelected: _salesCrmEntryPointIosController
+                                    .currentPage.value ==
+                                index,
+                            onTap: () {
+                              _salesCrmEntryPointIosController
+                                  .animateToTab(index);
+                            });
+                      } else {
+                        return MoreOptionsIos(
+                            isSelected: _salesCrmEntryPointIosController
+                                    .currentPage.value >=
+                                4);
+                      }
                     }),
                   ),
                 ),

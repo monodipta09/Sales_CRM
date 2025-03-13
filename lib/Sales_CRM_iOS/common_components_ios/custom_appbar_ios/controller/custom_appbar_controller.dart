@@ -22,6 +22,8 @@ class CustomAppbarController extends GetxController {
         return "Deals";
       case 5:
         return "Billing";
+      case 6:
+        return "Summary";
       default:
         return "Home";
     }

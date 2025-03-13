@@ -37,7 +37,8 @@ void handleResetPasswordIos(GlobalKey<FormState> formKey, TextEditingController 
 void handleLoginIos(BuildContext context, TextEditingController usernameController, TextEditingController passwordController, AuthController authController) {
   if(usernameController.text.isNotEmpty && passwordController.text.isNotEmpty) {
     authController.isLoading.value = true;
-    authController.login(usernameController.text, passwordController.text);
+    // authController.login(usernameController.text, passwordController.text);
+    authController.login("K2209079", "PIoqY5M@cDXtKpvMEK5e3");
   } else {
     Get.snackbar("Error", "Username and Password cannot be empty",
         snackPosition: SnackPosition.TOP, colorText: CupertinoColors.white);

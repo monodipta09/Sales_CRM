@@ -14,7 +14,7 @@ class CustomInputIOS extends StatefulWidget {
   final Widget? suffixIcon;
 
   const CustomInputIOS({
-    Key? key,
+    super.key,
     this.labelText,
     this.hintText,
     this.isMandatory = false,
@@ -24,7 +24,7 @@ class CustomInputIOS extends StatefulWidget {
     this.onDateSelected,
     this.prefixIcon,
     this.suffixIcon,
-  }) : super(key: key);
+  });
 
   @override
   _CustomInputIOSState createState() => _CustomInputIOSState();
@@ -44,74 +44,106 @@ class _CustomInputIOSState extends State<CustomInputIOS> {
     return GestureDetector(
       onTap: widget.inputType == InputType.date
           ? () async {
-        // Show date picker for date input
-        final selectedDate = await showCupertinoModalPopup<DateTime>(
-          context: context,
-          builder: (BuildContext context) {
-            return CupertinoDatePicker(
-              mode: CupertinoDatePickerMode.date,
-              initialDateTime: DateTime.now(),
-              onDateTimeChanged: (DateTime newDateTime) {
-                widget.controller?.text =
-                "${newDateTime.toLocal()}".split(' ')[0];
-                if (widget.onDateSelected != null) {
-                  widget.onDateSelected!(newDateTime);
-                }
-              },
-            );
-          },
-        );
-      }
+              // Show date picker for date input
+              final selectedDate = await showCupertinoModalPopup<void>(
+                context: context,
+                builder: (BuildContext context) {
+                  return Container(
+                    height: 216,
+                    padding: const EdgeInsets.only(top: 6.0),
+                    margin: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
+                    color:
+                        CupertinoColors.systemBackground.resolveFrom(context),
+                    child: SafeArea(
+                      top: false,
+                      child: CupertinoDatePicker(
+                        mode: CupertinoDatePickerMode.date,
+                        initialDateTime: DateTime.now(),
+                        onDateTimeChanged: (DateTime newDateTime) {
+                          widget.controller?.text =
+                              "${newDateTime.toLocal()}".split(' ')[0];
+                          if (widget.onDateSelected != null) {
+                            widget.onDateSelected!(newDateTime);
+                          }
+                        },
+                      ),
+                    ),
+                  );
+                },
+              );
+            }
           : widget.inputType == InputType.time
-          ? () async {
-        final selectedDuration = await showCupertinoModalPopup<Duration>(
-          context: context,
-          builder: (BuildContext context) {
-            return CupertinoTimerPicker(
-              initialTimerDuration: Duration.zero,
-              onTimerDurationChanged: (Duration newDuration) {
-                final formattedTime =
-                    "${newDuration.inHours}:${newDuration.inMinutes % 60}";
-                widget.controller?.text = formattedTime;
-              },
-            );
-          },
-        );
-      }
-          : null,
+              ? () async {
+                  final currentTime = DateTime.now();
+                  final initialDuration = Duration(
+                    hours: currentTime.hour,
+                    minutes: currentTime.minute,
+                    seconds: currentTime.second,
+                  );
+                  final selectedDuration =
+                      await showCupertinoModalPopup<Duration>(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Container(
+                        height: 216,
+                        padding: const EdgeInsets.only(top: 6.0),
+                        margin: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).viewInsets.bottom),
+                        color: CupertinoColors.systemBackground
+                            .resolveFrom(context),
+                        child: CupertinoTimerPicker(
+                          initialTimerDuration: initialDuration,
+                          onTimerDurationChanged: (Duration newDuration) {
+                            final formattedTime =
+                                "${newDuration.inHours}:${newDuration.inMinutes % 60}";
+                            widget.controller?.text = formattedTime;
+                          },
+                        ),
+                      );
+                    },
+                  );
+                }
+              : null,
       child: AbsorbPointer(
-        absorbing: widget.inputType == InputType.date || widget.inputType == InputType.time,
+        absorbing: widget.inputType == InputType.date ||
+            widget.inputType == InputType.time,
         child: CupertinoTextField(
           controller: widget.controller,
           keyboardType: _getKeyboardType(),
-          obscureText: widget.inputType == InputType.password && !_isPasswordVisible,
+          obscureText:
+              widget.inputType == InputType.password && !_isPasswordVisible,
           onChanged: widget.onChanged,
           style: TextStyle(
             fontSize: 16.0,
             color: textColor, // Dynamic text color based on theme
           ),
           placeholder: widget.hintText,
-          prefix: widget.prefixIcon,
+          prefix: Padding(
+            padding: EdgeInsets.only(left: 7.0),
+            child: widget.prefixIcon,
+          ),
           suffix: widget.inputType == InputType.password
               ? CupertinoButton(
-            padding: EdgeInsets.zero,
-            child: Icon(
-              _isPasswordVisible ? CupertinoIcons.eye : CupertinoIcons.eye_slash,
-              color: theme.primaryColor,
-            ),
-            onPressed: () {
-              setState(() {
-                _isPasswordVisible = !_isPasswordVisible;
-              });
-            },
-          )
+                  padding: EdgeInsets.zero,
+                  child: Icon(
+                    _isPasswordVisible
+                        ? CupertinoIcons.eye
+                        : CupertinoIcons.eye_slash,
+                    color: theme.primaryColor,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _isPasswordVisible = !_isPasswordVisible;
+                    });
+                  },
+                )
               : widget.suffixIcon,
-          padding: EdgeInsets.all(12),
+          padding: EdgeInsets.all(12.0),
           decoration: BoxDecoration(
             color: theme.scaffoldBackgroundColor,
             border: Border.all(color: theme.primaryColor.withOpacity(0.5)),
             borderRadius: BorderRadius.circular(8.0),
-
           ),
         ),
       ),
@@ -135,7 +167,9 @@ class _CustomInputIOSState extends State<CustomInputIOS> {
 
   // You can manually call this method for validation (e.g., when the user submits the form).
   String? validateInput() {
-    if (widget.isMandatory && (widget.controller?.text == null || widget.controller?.text.isEmpty == true)) {
+    if (widget.isMandatory &&
+        (widget.controller?.text == null ||
+            widget.controller?.text.isEmpty == true)) {
       setState(() {
         _errorText = 'This field is mandatory';
       });

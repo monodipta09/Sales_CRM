@@ -4,6 +4,7 @@ import 'package:iconly/iconly.dart';
 import 'package:sale_crm/Sales_CRM_iOS/views/home/controller/calendar_component_contoller.dart';
 import 'package:sale_crm/Sales_CRM_iOS/views/home/widget/calendar_component_ios.dart';
 
+import '../forms/form_screen/event_form_ios.dart';
 import '../widget/datepicker_widget_ios.dart';
 
 class HomeIos extends StatelessWidget {
@@ -21,6 +22,15 @@ class HomeIos extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             mainAxisSize: MainAxisSize.min,
             children: [
+              CupertinoButton(
+                padding: EdgeInsets.zero,
+                child: Icon(CupertinoIcons.add),
+                onPressed: () {
+                  showCupertinoModalPopup(
+                      context: context,
+                      builder: (BuildContext context) => EventFormIos());
+                },
+              ),
               CupertinoButton(
                 padding: EdgeInsets.zero,
                 child: Icon(CupertinoIcons.ellipsis_vertical),
