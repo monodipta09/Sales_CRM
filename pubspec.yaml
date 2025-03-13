@@ -28,6 +28,9 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  chart_package:
+    git:
+      url: https://github.com/RomanticNihilist/chart_package.git
   flutter:
     sdk: flutter
 
@@ -40,7 +43,9 @@ dependencies:
   iconly: ^1.0.1
   zoom_tap_animation: ^1.1.0
   flutter_speed_dial: ^7.0.0
-  syncfusion_flutter_calendar: ^21.1.50
+  syncfusion_flutter_calendar:
+  flutter_secure_storage: ^8.0.0
+  syncfusion_flutter_charts:
 
 dev_dependencies:
   flutter_test:

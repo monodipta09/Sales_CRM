@@ -1,142 +1,158 @@
+// import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
+// import 'package:iconly/iconly.dart';
+//
+// import '../../common_components/custom_appbar/view/custom_app_bar.dart';
+// import '../../views/more/screen/more_bottom_app_bar_item.dart';
+// import '../controller/sales_crm_entry_point_android_controller.dart';
+// import '../widgets/bottom_app_bar_item.dart';
+//
+// class SalesCrmEntryPointAndroid extends StatelessWidget {
+//   SalesCrmEntryPointAndroid({super.key});
+//   final SalesCrmEntryPointAndroidController _controller =
+//   Get.put(SalesCrmEntryPointAndroidController());
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: CustomAppBar(),
+//       bottomNavigationBar: BottomAppBar(
+//         elevation: 0,
+//         notchMargin: 10,
+//         child: Container(
+//           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+//           child: Obx(() => Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//             children: [
+//               BottomAppBarItem(
+//                   icon: IconlyLight.calendar,
+//                   page: 0,
+//                   label: "Calendar",
+//                   isSelected:
+//                   _controller.currentPage.value == 0,
+//                   onTap: () {
+//                     _controller.animateToTab(0);
+//                   }),
+//               BottomAppBarItem(
+//                   icon: IconlyLight.home,
+//                   page: 1,
+//                   label: "Home",
+//                   isSelected:
+//                   _controller.currentPage.value == 1,
+//                   onTap: () {
+//                     _controller.animateToTab(1);
+//                   }),
+//               BottomAppBarItem(
+//                   icon: IconlyLight.bookmark,
+//                   page: 2,
+//                   label: "Leads",
+//                   isSelected:
+//                   _controller.currentPage.value == 2,
+//                   onTap: () {
+//                     _controller.animateToTab(2);
+//                   }),
+//               BottomAppBarItem(
+//                   icon: IconlyLight.calling,
+//                   page: 3,
+//                   label: "Contacts",
+//                   isSelected:
+//                   _controller.currentPage.value == 3,
+//                   onTap: () {
+//                     _controller.animateToTab(3);
+//                   }),
+//               MoreBottomAppBarItem(
+//                   controller: _controller),
+//             ],
+//           )),
+//         ),
+//       ),
+//       body: PageView(
+//         controller: _controller.pageController,
+//         onPageChanged: (index) {
+//           _controller.currentPage.value = index;
+//         },
+//         children: _controller.pages,
+//       ),
+//     );
+//   }
+// }
+
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
-import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 import '../../common_components/custom_appbar/view/custom_app_bar.dart';
-import '../../utils/color_constants.dart';
+import '../../views/more/screen/more_bottom_app_bar_item.dart';
 import '../controller/sales_crm_entry_point_android_controller.dart';
+import '../widgets/bottom_app_bar_item.dart';
 
-class SalesCrmEntryPointAndroid extends StatelessWidget{
+class SalesCrmEntryPointAndroid extends StatelessWidget {
   SalesCrmEntryPointAndroid({super.key});
-  final SalesCrmEntryPointAndroidController _salesCrmEntryPointAndroidController = Get.put(SalesCrmEntryPointAndroidController());
+  final SalesCrmEntryPointAndroidController _controller =
+  Get.put(SalesCrmEntryPointAndroidController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
       bottomNavigationBar: BottomAppBar(
-        elevation: 0,
-        notchMargin: 10,
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-          child: Obx(
-              ()=> Scrollbar(
-                scrollbarOrientation: ScrollbarOrientation.right,
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      const SizedBox(width: 0,),
-                      _bottomAppBarItem(
-                          context,
-                          icon: IconlyLight.calendar,
-                          page: 0,
-                          label: "Calender"
-                      ),
-                      const SizedBox(width: 22,),
-                      _bottomAppBarItem(
-                          context,
-                          icon: IconlyLight.home,
-                          page: 1,
-                          label: "Home"
-                      ),
-                      const SizedBox(width: 22,),
-                      _bottomAppBarItem(
-                          context,
-                          icon: IconlyLight.bookmark,
-                          page: 2,
-                          label: "Leads"
-                      ),
-                      const SizedBox(width: 22,),
-                      _bottomAppBarItem(
-                          context,
-                          icon: IconlyLight.calling,
-                          page: 3,
-                          label: "Contacts"
-                      ),
-                      const SizedBox(width: 22,),
-                      _bottomAppBarItem(
-                          context,
-                          icon: IconlyLight.profile,
-                          page: 4,
-                          label: "Profile"
-                      ),
-                      const SizedBox(width: 22,),
-                      _bottomAppBarItem(
-                          context,
-                          icon: IconlyLight.profile,
-                          page: 4,
-                          label: "Profile"
-                      ),
-                      const SizedBox(width: 22,),
-                      _bottomAppBarItem(
-                          context,
-                          icon: IconlyLight.profile,
-                          page: 4,
-                          label: "Profile"
-                      ),
-                      const SizedBox(width: 22,),
-                      _bottomAppBarItem(
-                          context,
-                          icon: IconlyLight.profile,
-                          page: 4,
-                          label: "Profile"
-                      ),
-                      // const SizedBox(width: 20,),
-                      // Add your new bottom navigation items here
-                    ],
-                  ),
-                ),
-              )
-          ),
-        ),
-      ),
-      body: PageView(
-        controller: _salesCrmEntryPointAndroidController.pageController,
-        onPageChanged: (index) {
-          _salesCrmEntryPointAndroidController.currentPage.value = index;
-        },
-        children: _salesCrmEntryPointAndroidController.pages,
-      ),
-    );
-  }
-
-
-  Widget _bottomAppBarItem(BuildContext context,
-      {required icon, required page, required label}) {
-    return ZoomTapAnimation(
-      onTap: () {
-         _salesCrmEntryPointAndroidController.goToTab(page);
-        },
-      child: Container(
-        color: Colors.transparent,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
+        elevation: 4,
+        notchMargin: 8,
+        child: Obx(() => Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround, // Evenly space the items
           children: [
-            Icon(
-              icon,
-              color: _salesCrmEntryPointAndroidController.currentPage == page
-                  ? ColorConstants.appColors
-                  : Colors.grey,
-              size: 20,
+            BottomAppBarItem(
+              icon: IconlyLight.calendar,
+              page: 0,
+              label: "Calendar",
+              isSelected: _controller.currentPage.value == 0,
+              onTap: () {
+                _controller.animateToTab(0);
+              },
             ),
-            Text(
-              label,
-              style: TextStyle(
-                  color: _salesCrmEntryPointAndroidController.currentPage == page
-                      ? ColorConstants.appColors
-                      : Colors.grey,
-                  fontSize: 13,
-                  fontWeight: _salesCrmEntryPointAndroidController.currentPage == page
-                      ? FontWeight.w600
-                      : null),
+            BottomAppBarItem(
+              icon: IconlyLight.home,
+              page: 1,
+              label: "Home",
+              isSelected: _controller.currentPage.value == 1,
+              onTap: () {
+                _controller.animateToTab(1);
+              },
+            ),
+            BottomAppBarItem(
+              icon: IconlyLight.bookmark,
+              page: 2,
+              label: "Leads",
+              isSelected: _controller.currentPage.value == 2,
+              onTap: () {
+                _controller.animateToTab(2);
+              },
+            ),
+            BottomAppBarItem(
+              icon: IconlyLight.calling,
+              page: 3,
+              label: "Contacts",
+              isSelected: _controller.currentPage.value == 3,
+              onTap: () {
+                _controller.animateToTab(3);
+              },
+            ),
+            MoreBottomAppBarItem(
+              controller: _controller,
             ),
           ],
-        ),
+        )),
+      ),
+      body: PageView(
+        controller: _controller.pageController,
+        onPageChanged: (index) {
+          _controller.currentPage.value = index;
+        },
+        children: _controller.pages,
       ),
     );
   }
-
 }
+
+

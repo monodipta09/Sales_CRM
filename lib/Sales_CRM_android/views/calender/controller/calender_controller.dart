@@ -13,13 +13,13 @@ class CalendarControllerX extends GetxController {
   void onInit() {
     super.onInit();
     calendarController = CalendarController();
-    calendarController.view = _getCalendarView(selectedView.value);
+    calendarController.view = getCalendarView(selectedView.value);
     calendarController.displayDate = selectedDate.value;
   }
 
   void changeView(String view) {
     selectedView.value = view;
-    calendarController.view = _getCalendarView(view);
+    calendarController.view = getCalendarView(view);
     update();
   }
 
@@ -31,11 +31,24 @@ class CalendarControllerX extends GetxController {
 
   /// ✅ Fix: Trigger calendar refresh correctly
   void addEvent(Appointment event) {
+    // Add the event to the appointments list
     appointments.add(event);
+    update();  // Trigger a refresh to update the UI
+
+    // Ensure the calendar view is updated when the event is added
+    calendarController.view = getCalendarView(selectedView.value);
+    calendarController.displayDate = selectedDate.value;
+
+    // Trigger a calendar refresh by resetting the selectedDate and manually calling update
+    calendarController.selectedDate = selectedDate.value;
     update();
   }
 
-  CalendarView _getCalendarView(String view) {
+
+
+
+
+  CalendarView getCalendarView(String view) {
     switch (view) {
       case "Week":
         return CalendarView.week;
@@ -47,14 +60,7 @@ class CalendarControllerX extends GetxController {
     }
   }
 
-  void onFloatingActionButtonPressed() {
-    final event = Appointment(
-      startTime: DateTime.now(),
-      endTime: DateTime.now().add(Duration(hours: 1)),
-      subject: 'New Event',
-      color: Colors.blue,
-      isAllDay: false,
-    );
-    addEvent(event);
-  }
 }
+
+
+

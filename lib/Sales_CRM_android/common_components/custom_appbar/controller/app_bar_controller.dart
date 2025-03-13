@@ -16,7 +16,13 @@ class AppBarController extends GetxController {
       case 3:
         return "Contacts";
       case 4:
-        return "Profile";
+        return "Account";
+      case 5:
+        return "Deals";
+      case 6:
+        return "Task";
+      case 7:
+        return "Summary";
       default:
         return "Sales CRM";
     }
@@ -35,6 +41,14 @@ class AppBarController extends GetxController {
         return Icons.phone_android_outlined;
       case "Profile":
         return Icons.person_2_outlined;
+      case "Account":
+        return Icons.account_box;
+      case "Deals":
+        return Icons.handshake;
+      case "Task":
+        return Icons.task;
+      case "Summary":
+        return Icons.add_chart;
       default:
         return Icons.dashboard;
     }

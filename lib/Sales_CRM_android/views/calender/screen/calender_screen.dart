@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+// import '../../../common_components/forms/form_screen/event_management_form_widget.dart';
+// import '../../../common_components/forms/widgets/event_management_form_widget.dart';
 import '../controller/calender_controller.dart';
+import '../forms/form_screen/event_management_form_widget.dart';
 import '../widgets/calender_widgets.dart';
 
 
@@ -44,11 +47,22 @@ class CalendarScreen extends StatelessWidget {
       ),
       body: CalendarWidget(), // Display the calendar view
       floatingActionButton: FloatingActionButton(
-        onPressed: calendarControllerX.onFloatingActionButtonPressed,  // Calls controller method to add event
+        onPressed: () {
+          // Open Event Form Modal when FAB is pressed
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return EventFormModal();  // Open the event form
+            },
+          );
+        },
         child: Icon(Icons.add),
       ),
     );
   }
 }
+
+
+
 
 

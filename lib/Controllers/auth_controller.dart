@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sale_crm/Sales_CRM_android/sales_crm_entry_point_android/screen/sales_crm_entry_point_android.dart';
@@ -18,11 +17,9 @@ class AuthController extends GetxController {
     isLoading.value = false;
 
     if (isSuccess) {
-      // Get.offAll(() => SalesCrmEntryPointAndroid());
       if (Platform.isAndroid) {
         Get.offAll(() => SalesCrmEntryPointAndroid());
       } else if (Platform.isIOS) {
-        // Replace with your iOS entry point
         Get.offAll(() => SalesCrmEntryPointIOS());
       }
       Get.snackbar(
